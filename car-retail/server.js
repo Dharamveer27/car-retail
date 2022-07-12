@@ -6,7 +6,7 @@ import { config } from 'dotenv';
 
 
 import { default as mongoose } from 'mongoose';
-import usersRouter from './routes/users.js';
+import usersRouter from './routes/usersRoute.js';
 import indexRouter from './routes/index.js';
 
 var app = express();
