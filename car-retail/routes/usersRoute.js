@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { login } from '../controlers/auth.controlers.js';
-import { addUser } from '../controlers/user.controlers.js';
+import { login } from '../controlers/authControlers.js';
+import { addUser } from '../controlers/userControlers.js';
 import { isAdmin, verifyToken } from '../middleware/authJWT.js';
 const usersRouter = Router();
 

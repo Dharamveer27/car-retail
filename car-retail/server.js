@@ -3,7 +3,7 @@ import path, { join } from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import { config } from 'dotenv';
-import globalErrorHandler from './controlers/error.controlers.js'
+import globalErrorHandler from './controlers/errorControlers.js'
 import { default as mongoose } from 'mongoose';
 import usersRouter from './routes/usersRoute.js';
 import indexRouter from './routes/index.js';
