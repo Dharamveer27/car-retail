@@ -14,3 +14,19 @@ export const verifyToken = (req, res, next) => {
         res.status(401).send({ message: "Invalid Token" });
     }
 };
+
+export const isAdmin = (req, res, next) => {
+    if (req.user, req.user.role === 'admin') {
+        next();
+    } else {
+        res.status(401).send({ message: 'Not an Admin' })
+    }
+}
+
+export const isManager = (req, res, next) => {
+    if (req.user, req.user.role === 'manager') {
+        next();
+    } else {
+        res.status(401).send({ message: 'Not a Manager' })
+    }
+}
