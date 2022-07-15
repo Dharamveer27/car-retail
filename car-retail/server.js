@@ -6,7 +6,7 @@ import { config } from 'dotenv';
 
 
 import { default as mongoose } from 'mongoose';
-import usersRouter from './routes/users.js';
+import carsRouter from './routes/cars.js';
 import indexRouter from './routes/index.js';
 
 var app = express();
@@ -29,9 +29,14 @@ const __dirname = path.resolve();
 app.use(express.static(join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/cars', carsRouter);
+app.use('/allcars',carsRouter);
+app.use('/deletecar',carsRouter);
 
+app.use((err,req,res,next)=>{
+  res.status(500).send({ message: err.message });
 
+})
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`listening on ${port}`);
