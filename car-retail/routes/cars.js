@@ -18,13 +18,19 @@ carsRouter.get('/allcars', function (req, res, next) {
 });
 
 // GET individual cars
-carsRouter.get('/:id', (req, res) => {
-  let query = { _id: new ObjectId(req.params.id) };
-  collection.findOne(query, function (err, result) {
-    if (err) throw err;
-    res.send(result);
-  })
-});
+carsRouter.get('/:id',expressAsyncHandler( async(req, res) => {
+  const car= Cars.findById(req.params.id)
+  if(car){
+    await Cars.findOne()
+    res.send({message:'maa ki'})
+  }
+  else {
+    res.status(404).send({ message: 'Car Not Found' });
+}
+
+
+  }));
+
 
 carsRouter.post('/addsinglecar', expressAsyncHandler(async (req, res) => {
 
@@ -59,5 +65,7 @@ carsRouter.delete('/:id',expressAsyncHandler( async(req, res) => {
     res.status(404).send({ message: 'Car Not Found' });
   }
 }))
+
+
 
 export default carsRouter;
