@@ -3,10 +3,10 @@ import path, { join } from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import { config } from 'dotenv';
-import globalErrorHandler from './controlers/errorControlers.js'
+import globalErrorHandler from './controlers/errorControler.js'
 import { default as mongoose } from 'mongoose';
 import usersRouter from './routes/usersRoute.js';
-import indexRouter from './routes/index.js';
+import carsRouter from './routes/carsRoute.js';
 
 var app = express();
 config();
@@ -27,8 +27,9 @@ app.use(cookieParser());
 const __dirname = path.resolve();
 app.use(express.static(join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', usersRouter);
+app.use('/car', carsRouter);
+
 
 app.use(globalErrorHandler);
 

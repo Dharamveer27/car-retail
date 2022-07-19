@@ -26,11 +26,13 @@ const userSchema = new mongoose.Schema(
             enum: ["buyer", "manager", "admin"],
             required: [true, "Please specify user role"]
         },
+        isDeleted: { type: Boolean, default: false }
     },
     {
         timestamps: true,
     }
 );
+
 
 const User = new mongoose.model("User", userSchema);
 export default User;
