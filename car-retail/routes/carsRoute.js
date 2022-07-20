@@ -8,13 +8,10 @@ const carsRouter = Router();
 
 // GET all cars
 carsRouter.get('/', verifyToken, getAllCars)
-
 //get all cars in csv
 carsRouter.get('/csv', verifyToken, getCSV);
-
 // GET individual cars
 carsRouter.get('/:id', verifyToken, getCarbyId);
-
 //add a car 
 carsRouter.post('/', verifyToken, isManager, addCar)
 //add cars using csv upload

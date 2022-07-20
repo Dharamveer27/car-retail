@@ -31,6 +31,6 @@ export const isManager = (req, res, next) => {
     if (req.user, req.user.role === 'manager') {
         next();
     } else {
-        res.status(401).send({ message: 'Not Authorised' })
+        res.status(401).send({ message: ' Unauthorised User' })
     }
 }
