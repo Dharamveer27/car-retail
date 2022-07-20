@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-
+import User from "../models/userModel.js";
 export const verifyToken = (req, res, next) => {
 
     const authorization = req.headers.authorization;
@@ -9,9 +9,16 @@ export const verifyToken = (req, res, next) => {
             if (err) {
                 res.status(401).send({ message: "Invalid Token " });
             } else {
-                req.user = decode;
+                User.findOne({ _id: decode._id, isDeleted: false }, (err, data) => {
+                    if (!data) {
+                        res.status(401).send({ message: "Invalid Token " });
+                    }
+                    else {
+                        req.user = decode;
+                        next();
+                    }
+                });
 
-                next();
             }
         });
     } else {

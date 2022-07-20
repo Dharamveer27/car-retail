@@ -6,6 +6,7 @@ const RetailSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Car",
         required: true,
+        unique: true
 
     },
     userId: {
@@ -15,5 +16,5 @@ const RetailSchema = new mongoose.Schema({
     },
 })
 
-const Retail = new mongoose.model('retail', RetailSchema);
+const Retail = new mongoose.model('Retail', RetailSchema);
 export default Retail;
