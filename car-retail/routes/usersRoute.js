@@ -5,7 +5,7 @@ import { isAdmin, verifyToken } from '../middleware/authJWT.js';
 import validationErrorHandler from '../middleware/validationErrorHandler.js';
 import { loginValidation } from '../utils/utils.js';
 import { getUsers } from '../middleware/helper.js';
-import { changePassword } from '../controlers/buyerControler.js';
+import { changePassword, buyRequest } from '../controlers/buyerControler.js';
 
 const usersRouter = Router();
 
@@ -17,5 +17,5 @@ usersRouter.post('/admin/users', verifyToken, isAdmin, addUserinBulk)
 usersRouter.put('/admin/:id', verifyToken, isAdmin, updateUser)
 usersRouter.delete('/admin/:id', verifyToken, isAdmin, deleteUser)
 usersRouter.post('/login', loginValidation, validationErrorHandler, login)
-
+usersRouter.post('/buyer/car/:id', verifyToken, buyRequest);
 export default usersRouter;

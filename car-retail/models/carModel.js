@@ -6,7 +6,8 @@ const CarSchema = new mongoose.Schema({
     carId: {
         type: Number,
         required: true,
-        unique: true
+        unique: true,
+        auto: true,
 
     },
 
@@ -61,8 +62,9 @@ const CarSchema = new mongoose.Schema({
     },
     isDeleted: { type: Boolean, default: false }
 
+
 })
 
-const Car = new mongoose.model('car', CarSchema);
+const Car = new mongoose.model('Car', CarSchema);
 
 export default Car;

@@ -70,30 +70,11 @@ export const addUserinBulk = expressAsyncHandler(async (req, res) => {
                         response[x].password = bcrypt.hashSync(newPassword, 10);
 
                         const newUser = new User(response[x]);
-                        newUser.save().then((data, err) => {
+                        newUser.save().then((data) => {
                             if (data) {
-
                                 sendmail(newPassword, data.email);
-                                console.log(response[x])
-                                console.log("user added successfully");
                             }
-                        }).catch((data, err) => {
-                            if (data.code == 11000 && data.keyValue.email) {
-                                User.findOne({ email: response[x].email, isDeleted: true }).then((data, error) => {
-                                    if (data) {
-                                        const newPassword = createPassword(8, 5, 5);
-                                        data.password = bcrypt.hashSync(newPassword, 10);
-                                        data.isDeleted = false;
-                                        data.save().then((result, err) => {
-                                            if (data) {
-                                                sendmail(newPassword, result.email);
-                                                console.log("user added successfully");
-                                            }
-                                        })
-                                    }
-                                })
-                            }
-                        })
+                        }).catch(entryChecker)
                     }
                     res.json({ message: "Successfully added" })
                 });
@@ -112,9 +93,6 @@ export const updateUser = expressAsyncHandler(async (req, res) => {
         user.role = req.body.role || user.role;
 
         const updatedUser = await user.save();
-
-
-
         res.send({ message: 'User Updated', user: updatedUser });
     } else {
         res.status(404).send({ message: 'User Not Found' });
@@ -135,3 +113,22 @@ export const deleteUser = expressAsyncHandler(async (req, res) => {
         res.status(404).send({ message: 'User Not Found' });
     }
 })
+
+
+
+const entryChecker = (data) => {
+    if (data.code == 11000 && data.keyValue.email) {
+        User.findOne({ email: response[x].email, isDeleted: true }).then((data) => {
+            if (data) {
+                const newPassword = createPassword(8, 5, 5);
+                data.password = bcrypt.hashSync(newPassword, 10);
+                data.isDeleted = false;
+                data.save().then((result, err) => {
+                    if (data) {
+                        sendmail(newPassword, result.email);
+                    }
+                })
+            }
+        })
+    }
+}

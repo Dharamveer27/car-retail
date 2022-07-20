@@ -1,6 +1,8 @@
 import expressAsyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
+import Retail from "../models/retailModel.js";
 import bcrypt from "bcrypt"
+
 import { ContextBuilder } from "express-validator/src/context-builder.js";
 
 export const changePassword = expressAsyncHandler(async (req, res) => {
@@ -15,3 +17,30 @@ export const changePassword = expressAsyncHandler(async (req, res) => {
     }
 
 })
+
+
+
+export const buyRequest = expressAsyncHandler(async (req, res) => {
+    const userId = req.user._id;
+    const carId = req.params.id;
+    console.log(carId)
+    const retail = new Retail({
+        userId: userId,
+        carId: carId
+    });
+
+    retail.save().then((data) => {
+
+        if (data) {
+            res.status(200).json({ message: "Buy Request Successfyully Submitted" });
+        }
+
+    }, (error) => {
+        if (error.code == 11000) {
+            res.status(400).json({ message: "Already Requested by another user" });
+        }
+    });
+
+
+
+});
