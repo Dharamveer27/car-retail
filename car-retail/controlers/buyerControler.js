@@ -55,7 +55,7 @@ export const buyRequest = expressAsyncHandler(async (req, res) => {
         },
         (error) => {
           if (error.code == 11000) {
-            res.status(400).json({ message: "Already Requested by another user" });
+            res.status(400).json({ message: "Car Not Available " });
           }
         }
       );

@@ -30,7 +30,7 @@ export const addUser = expressAsyncHandler(async (req, res) => {
     email: req.body.email,
     isDeleted: true,
   });
-  console.log(existingUser);
+
   if (existingUser) {
     existingUser.isDeleted = false;
     const user = await existingUser.save();

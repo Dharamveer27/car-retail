@@ -44,7 +44,7 @@ export const addCar = expressAsyncHandler(async (req, res) => {
     })
     .catch((err) => {
       if (err.code === 11000) {
-        Car.findOne({ carId: req.body.carId, isDeleted: true })
+        Car.findOne({ registrationNumber: req.body.registrationNumber, isDeleted: true })
           .then((car) => {
             if (car) {
               car.isDeleted = false;
@@ -95,7 +95,7 @@ export const updateCar = expressAsyncHandler(async (req, res) => {
 //delete a car
 export const deleteCar = expressAsyncHandler(async (req, res) => {
   await Car.findByIdAndUpdate(req.params.id, { isDeleted: true })
-res.send({ message: "Car deleted" });
+  res.send({ message: "Car deleted" });
 });
 
 
@@ -118,7 +118,7 @@ export const bulkCarUpload = expressAsyncHandler(async (req, res) => {
                   (car) => {
                     if (car) {
                       car.isDeleted = false;
-                      car.save().then((result) => {});
+                      car.save().then((result) => { });
                     }
                   }
                 );

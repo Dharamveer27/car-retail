@@ -24,5 +24,5 @@ usersRouter.delete('/admin/:id', verifyToken, isAdmin, deleteUser)
 // api to login user and generate auth token
 usersRouter.post('/login', loginValidation, validationErrorHandler, login)
 //api to create buy request
-usersRouter.post('/buyer/car/:id', verifyToken, buyRequest);
+usersRouter.get('/buyer/car/:id', verifyToken, buyRequest);
 export default usersRouter;
